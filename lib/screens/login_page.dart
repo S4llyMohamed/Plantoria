@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plantoria/screens/home_page.dart';
-
+import 'package:plantoria/screens/signup_page.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -95,7 +95,10 @@ class LoginPage extends StatelessWidget {
               children: [
                 const Text("Don't have an account?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignupPage()),
+                  );},
                   child: const Text(
                     'Sign up',
                     style: TextStyle(
