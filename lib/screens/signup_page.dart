@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:plantoria/screens/home_page.dart';
+import 'package:plantoria/screens/login_page.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,12 @@ class LoginPage extends StatelessWidget {
             // Logo
             Image.asset('assets/logo.png', height: 100),
             const SizedBox(height: 20),
-
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  'Log In',
+                  'Sign Up',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -31,13 +32,22 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  'please sign in to continue',
+                  'create an account to get started',
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
             const SizedBox(height: 30),
-
+            
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.person),
+                hintText: 'Full Name',
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 15),
+            
             TextField(
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.email),
@@ -46,7 +56,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-
+            
             TextField(
               obscureText: true,
               decoration: InputDecoration(
@@ -56,18 +66,19 @@ class LoginPage extends StatelessWidget {
                 border: UnderlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Forgot Password',
-                  style: TextStyle(color: Color(0xff9AE66E)),
-                ),
+            const SizedBox(height: 15),
+            
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: const Icon(Icons.visibility_off),
+                hintText: 'Confirm Password',
+                border: UnderlineInputBorder(),
               ),
             ),
             const SizedBox(height: 40),
+            
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -80,24 +91,28 @@ class LoginPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 },
-
                 child: const Text(
-                  'Log in',
+                  'Sign up',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
             ),
-
+            
             const SizedBox(height: 10),
-
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an account?"),
+                const Text("Already have an account?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
                   child: const Text(
-                    'Sign up',
+                    'Log in',
                     style: TextStyle(
                       color: Color(0xff9AE66E),
                       fontWeight: FontWeight.bold,
