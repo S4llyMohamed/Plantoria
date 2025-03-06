@@ -143,7 +143,7 @@ class ChatbotPage extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: const Icon(
-                        Icons.spa,
+                        Icons.chat,
                         color: Colors.white,
                         size: 28,
                       ),
