@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plantoria/screens/home_page.dart';
 import 'package:plantoria/screens/login_page.dart';
+import 'package:plantoria/screens/select_plants_screen.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -86,9 +86,10 @@ class SignupPage extends StatelessWidget {
                   backgroundColor: Color(0xff9AE66E),
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  // Navigate to SelectPlantsPage for first-time users
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => SelectPlantsPage()),
                   );
                 },
                 child: const Text(

@@ -1,9 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:plantoria/screens/chatbot_page.dart';
+import 'package:plantoria/screens/select_plants_screen.dart';
 import 'package:plantoria/widgets/plant_card.dart';
 import 'package:plantoria/screens/details_screen.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  final List<String> selectedPlants;
+
+  // Updated constructor to accept selected plants
+  const HomePage({super.key, required this.selectedPlants});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Create a mutable list to manage selected plants
+  late List<String> _currentPlants;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with the passed in selected plants
+    _currentPlants = List.from(widget.selectedPlants);
+  }
+
+  // Map of all available plants with their image paths
+  final Map<String, String> plantImages = {
+    'Tomato': 'assets/tomato.png',
+    'Strawberry': 'assets/strawberry.jpg',
+    'Soybean': 'assets/soybean.png',
+    'Pepper': 'assets/pepper.png',
+    'grabe': 'assets/grabe.jpeg',
+    'Cucumber': 'assets/cucumber.jpeg',
+    'Basil': 'assets/mint.jpeg',
+    'Spinach': 'assets/cherry.jpeg',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -34,60 +66,42 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            // Plant cards grid
+            // Plant cards grid - now using selected plants
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.9,
-                  children: [
-                    PlantCard(
-                      imagePath: 'assets/tomato.png',
-                      plantName: 'Tomato',
-                      onTap: () {
-                        _showPlantDialog(
-                          context,
-                          'assets/tomato.png',
-                          'Tomato',
-                        );
-                      },
-                    ),
-                    PlantCard(
-                      imagePath: 'assets/strawberry.jpg',
-                      plantName: 'Strawberry',
-                      onTap: () {
-                        _showPlantDialog(
-                          context,
-                          'assets/strawberry.jpg',
-                          'Strawberry',
-                        );
-                      },
-                    ),
-                    PlantCard(
-                      imagePath: 'assets/soybean.png',
-                      plantName: 'Soybean',
-                      onTap: () {
-                        _showPlantDialog(
-                          context,
-                          'assets/soybean.png',
-                          'Soybean',
-                        );
-                      },
-                    ),
-                    PlantCard(
-                      imagePath: 'assets/pepper.png',
-                      plantName: 'Pepper',
-                      onTap: () {
-                        _showPlantDialog(
-                          context,
-                          'assets/pepper.png',
-                          'Pepper',
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                child:
+                    _currentPlants.isEmpty
+                        ? const Center(
+                          child: Text(
+                            'No plants selected. Go back and select some plants.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                          ),
+                        )
+                        : GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.9,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                              ),
+                          itemCount: _currentPlants.length,
+                          itemBuilder: (context, index) {
+                            final plantName = _currentPlants[index];
+                            final imagePath =
+                                plantImages[plantName] ?? 'assets/logo.png';
+
+                            return PlantCard(
+                              imagePath: imagePath,
+                              plantName: plantName,
+                              onTap: () {
+                                _showPlantDialog(context, imagePath, plantName);
+                              },
+                            );
+                          },
+                        ),
               ),
             ),
 
@@ -98,7 +112,12 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20.0, bottom: 10.0),
                 child: FloatingActionButton(
                   onPressed: () {
-                    // Add new plant
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectPlantsPage(),
+                      ),
+                    );
                   },
                   backgroundColor: const Color(0xffB8ED8C),
                   mini: false,
@@ -133,8 +152,13 @@ class HomePage extends StatelessWidget {
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.spa, color: Colors.white, size: 28),
-                    onPressed: () {},
+                    icon: const Icon(Icons.chat, color: Colors.white, size: 28),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatbotPage()),
+                      );
+                    },
                   ),
                   IconButton(
                     icon: const Icon(
@@ -237,8 +261,11 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
-                      // Add delete functionality
+                      Navigator.pop(context); // Close the current dialog
+                      _showDeleteConfirmationDialog(
+                        context,
+                        plantName,
+                      ); // Show confirmation dialog
                     },
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
@@ -256,6 +283,67 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  // Function to show delete confirmation dialog
+  void _showDeleteConfirmationDialog(BuildContext context, String plantName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Text(
+            'Delete $plantName',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            'Are you sure you want to delete $plantName from your plants?',
+            style: const TextStyle(fontSize: 16),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Color(0xff9AE66E),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // Delete the plant
+                setState(() {
+                  _currentPlants.remove(plantName);
+                });
+                Navigator.pop(context); // Close the dialog
+
+                // Show a snackbar to confirm deletion
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$plantName has been deleted'),
+                    backgroundColor: const Color(0xff9AE66E),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

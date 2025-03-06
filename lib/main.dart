@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plantoria/screens/login_page.dart';
+import 'package:plantoria/screens/signup_page.dart';
 
 void main() {
   runApp(Plantoria());
@@ -10,6 +10,6 @@ class Plantoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginPage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SignupPage());
   }
 }
