@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plantoria/screens/chatbot_page.dart';
 import 'package:plantoria/widgets/sensor_card.dart';
 
 class PlantDetailsPage extends StatelessWidget {
@@ -202,7 +203,7 @@ class PlantDetailsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home, color: Colors.white, size: 28),
+                    icon: const Icon(Icons.home, color: Colors.black, size: 28),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -210,19 +211,28 @@ class PlantDetailsPage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(
                       Icons.camera_alt,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.spa, color: Colors.white, size: 28),
-                    onPressed: () {},
+                    icon: Image.asset(
+                      'assets/chatbotIcon .png',
+                      width: 28,
+                      height: 28,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatbotPage()),
+                      );
+                    },
                   ),
                   IconButton(
                     icon: const Icon(
                       Icons.notifications,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {},

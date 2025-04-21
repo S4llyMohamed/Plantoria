@@ -119,9 +119,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  backgroundColor: const Color(0xffB8ED8C),
+                  backgroundColor: const Color(0xff9AE66E),
                   mini: false,
-                  child: const Icon(Icons.add, color: Colors.white),
+                  child: const Icon(Icons.add, color: Colors.black),
                 ),
               ),
             ),
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 60,
               decoration: const BoxDecoration(
-                color: Color(0xffB8ED8C),
+                color: Color(0xff9AE66E),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -140,19 +140,23 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home, color: Colors.white, size: 28),
+                    icon: const Icon(Icons.home, color: Colors.black, size: 28),
                     onPressed: () {},
                   ),
                   IconButton(
                     icon: const Icon(
                       Icons.camera_alt,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.chat, color: Colors.white, size: 28),
+                    icon: Image.asset(
+                      'assets/chatbotIcon .png',
+                      width: 28,
+                      height: 28,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -163,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: const Icon(
                       Icons.notifications,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {},
@@ -214,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffB8ED8C),
+                      backgroundColor: Color(0xff9AE66E),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plantoria/screens/chatbot2.dart';
 
 class ChatbotPage extends StatelessWidget {
   const ChatbotPage({Key? key}) : super(key: key);
@@ -54,13 +55,13 @@ class ChatbotPage extends StatelessWidget {
 
                       // Main logo using image
                       Container(
-                        width: 150,
-                        height: 150,
+                        width: 125,
+                        height: 123,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Image.asset(
-                          'assets/chat.png',
+                          'assets/p2.png',
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -83,14 +84,19 @@ class ChatbotPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xffB8ED8C),
+                          backgroundColor: Color(0xff9AE66E),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                         onPressed: () {
-                          // TODO: Start conversation with GrowBot
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatScreen(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Start',
@@ -111,7 +117,7 @@ class ChatbotPage extends StatelessWidget {
             Container(
               height: 60,
               decoration: const BoxDecoration(
-                color: Color(0xffB8ED8C),
+                color: Color(0xff9AE66E),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -121,7 +127,7 @@ class ChatbotPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home, color: Colors.white, size: 28),
+                    icon: const Icon(Icons.home, color: Colors.black, size: 28),
                     onPressed: () {
                       Navigator.pop(context); // Go back to home
                     },
@@ -129,33 +135,25 @@ class ChatbotPage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(
                       Icons.camera_alt,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {
                       // Camera functionality
                     },
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(15),
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/chatbotIcon .png',
+                      width: 28,
+                      height: 28,
                     ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.chat,
-                        color: Colors.white,
-                        size: 28,
-                      ),
-                      onPressed: () {
-                        // Already on this page
-                      },
-                    ),
+                    onPressed: () {},
                   ),
                   IconButton(
                     icon: const Icon(
                       Icons.notifications,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                     onPressed: () {
@@ -177,7 +175,7 @@ class ChatbotPage extends StatelessWidget {
       width: size,
       height: size,
       decoration: const BoxDecoration(
-        color: Color(0xffB8ED8C),
+        color: Color(0xff9AE66E),
         shape: BoxShape.circle,
       ),
     );

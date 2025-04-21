@@ -84,6 +84,7 @@ class SignupPage extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff9AE66E),
+                  
                 ),
                 onPressed: () {
                   // Navigate to SelectPlantsPage for first-time users
